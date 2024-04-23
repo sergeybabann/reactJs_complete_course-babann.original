@@ -16,40 +16,32 @@
 <body>
   <div id="root"></div>
   <script type="text/babel">
+    const SYMBOL_X = 'X';
+    const SYMBOL_0 = '0';
+
     function App() {
+      const cells = [SYMBOL_0, null, null, SYMBOL_0, SYMBOL_X, null, null, null, null]
+
+      const currentStep = SYMBOL_0;
+      const getSymbolClassName = (symbol) => {
+        if (symbol === SYMBOL_0) return 'symbol--o';
+        if (symbol === SYMBOL_X) return 'symbol--x';
+        return '';
+      }
+
       return (
         <div className="game">
           <div className="game-info">
-            Ход: <span className="symbol symbol--x">X</span>
+            Ход: <span className={`symbol ${getSymbolClassName(currentStep)}`}>{currentStep}</span>
           </div>
 
           <div className="game-field">
-            <button className="cell cell-win">
-              <span className="symbol symbol--x">X</span>
-            </button>
-
-            <button className="cell">
-              <span className="symbol symbol--o">O</span>
-            </button>
-            <button className="cell"></button>
-
-            <button className="cell cell-win">
-              <span className="symbol symbol--x">X</span>
-            </button>
-            <button className="cell"></button>
-
-            <button className="cell">
-              <span className="symbol symbol--o">O</span>
-            </button>
-            <button className="cell cell-win">
-              <span className="symbol symbol--x">X</span>
-            </button>
-
-            <button className="cell">
-              <span className="symbol symbol--o">O</span>
-            </button>
-            <button className="cell"></button>
-
+            {cells.map(symbol => {
+              return <button className="cell">{
+                symbol ? <span className={`symbol ${getSymbolClassName(symbol)}`}>{symbol}</span> : null
+              }
+              </button>
+            })}
           </div>
         </div>
       )
