@@ -20,7 +20,7 @@
     const SYMBOL_0 = '0';
 
     function App() {
-      const cells = [SYMBOL_0, null, null, SYMBOL_0, SYMBOL_X, null, null, null, null]
+      const cells = [SYMBOL_0, null, null, SYMBOL_0, SYMBOL_X, null, null, null, null];
 
       const currentStep = SYMBOL_0;
       const getSymbolClassName = (symbol) => {
@@ -29,17 +29,19 @@
         return '';
       }
 
+      const renderSymbol = (symbol) =>
+        <span className={`symbol ${getSymbolClassName(symbol)}`}>{symbol}</span>
+
+
       return (
         <div className="game">
           <div className="game-info">
-            Ход: <span className={`symbol ${getSymbolClassName(currentStep)}`}>{currentStep}</span>
+            Ход: {renderSymbol(currentStep)}
           </div>
 
           <div className="game-field">
-            {cells.map(symbol => {
-              return <button className="cell">{
-                symbol ? <span className={`symbol ${getSymbolClassName(symbol)}`}>{symbol}</span> : null
-              }
+            {cells.map((symbol, index) => {
+              return <button key={index} className="cell">{symbol ? renderSymbol(symbol) : null}
               </button>
             })}
           </div>
